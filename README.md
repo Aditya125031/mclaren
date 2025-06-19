@@ -1,10 +1,10 @@
-# 🤖 Shitty_bot – ROS 2 Differential Drive Robot Simulation
+# 🤖 Mclaren – ROS 2 Differential Drive Robot Simulation
 
 Welcome to **Shitty_bot**, a simulated 4-wheeled differential drive robot developed using **ROS 2** and **Gazebo**. This package is ideal for exploring basic robot mobility, sensor integration, teleoperation, and obstacle detection using LiDAR.
 
 ---
 
-## 📦 Package: `shitty_robo`
+## 📦 Package: `mclaren_robo`
 
 ### 🔧 Features
 - 🛞 **4-Wheel Differential Drive**  
