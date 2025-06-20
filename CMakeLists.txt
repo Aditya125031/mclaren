@@ -35,10 +35,6 @@ install(DIRECTORY description/
   DESTINATION share/${PROJECT_NAME}/description
 )
 
-install(DIRECTORY include/
-  DESTINATION share/${PROJECT_NAME}/include
-)
-
 install(TARGETS wall_alert_node
   DESTINATION lib/${PROJECT_NAME}
 )
