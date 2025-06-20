@@ -1,6 +1,6 @@
 # 🤖 Mclaren – ROS 2 Differential Drive Robot Simulation
 
-Welcome to **Shitty_bot**, a simulated 4-wheeled differential drive robot developed using **ROS 2** and **Gazebo**. This package is ideal for exploring basic robot mobility, sensor integration, teleoperation, and obstacle detection using LiDAR.
+Welcome to **Mclaren_p1**, a simulated 4-wheeled differential drive robot developed using **ROS 2** and **Gazebo**. This package is ideal for exploring basic robot mobility, sensor integration, teleoperation, and obstacle detection using LiDAR.
 
 ---
 
@@ -23,7 +23,7 @@ Welcome to **Shitty_bot**, a simulated 4-wheeled differential drive robot develo
 - `robot.urdf.xacro` – Main robot structure  
 - `gazebo_control.xacro` – Control plugins for Gazebo  
 - `shitty_bot.xacro` – Macro-based component assembly  
-- `Shitty_bot.urdf` – Full robot description  
+- `mclaren_p1.urdf` – Full robot description  
 
 ### 🌎 World File
 - `Hennesey_world.world` – Includes:
@@ -32,7 +32,7 @@ Welcome to **Shitty_bot**, a simulated 4-wheeled differential drive robot develo
   - Static wall obstacle  
 
 ### 🚀 Launch Files
-- `shitty_launch_sim_launch.py`
+- smclaren_p1_launch.py`
   - Launches Gazebo with `Hennesey_world.world`
   - Spawns robot (`robot.urdf.xacro`)
   - Starts joint state publisher and robot state publisher (`shitty_bot_rsp_launch.py`)
@@ -40,7 +40,7 @@ Welcome to **Shitty_bot**, a simulated 4-wheeled differential drive robot develo
   - Launches keyboard teleop using XTerm
   - Opens RViz2 with pre-configured layout (`mclaren_robot.rviz`)
 
-- `shitty_bot_rsp_launch.py`
+- `mclaren_p1_rsp_launch.py`
   - Auxiliary launch file to handle robot state publishing  
 
 ### 🧠 Source Code
@@ -62,7 +62,7 @@ Welcome to **Shitty_bot**, a simulated 4-wheeled differential drive robot develo
 ![RViz Obstacle](Screenshots/rviz_obstacle.png)
 ## 🧪 How to Use
 
-# 🚀 How to Run the `shitty_robo` ROS 2 Package
+# 🚀 How to Run the `mclaren_robo` ROS 2 Package
 
 This guide walks you through setting up and launching the **shitty_robo** ROS 2 package simulation.
 
@@ -73,7 +73,7 @@ This guide walks you through setting up and launching the **shitty_robo** ROS 2 
 Navigate to the `src/` folder of your ROS 2 workspace and clone the repo:
 
 ```bash
-git clone https://github.com/Aditya125031/Shitty_Bot.git
+git clone https://github.com/Aditya125031/mclaren.git
 ```
 
 ## 🔧 2. Build the Workspace
@@ -96,14 +96,14 @@ source install/setup.bash
 To start the complete simulation with **Ignition Gazebo**, **RViz2**, and control interfaces, run:
 
 ```bash
-ros2 launch shitty_robo shitty_launch_sim_launch.py
+ros2 launch mclaren_robo mclaren_p1_launch.py
 ```
 ## 📡 Optional: Run Wall Alert Node Separately
 
 For testing or getting clean LiDAR readings separately:
 
 ```bash
-ros2 run shitty_robo wall_alert_node
+ros2 run mclaren_robo wall_alert_node
 ```
 Subscribes to /scan
 
