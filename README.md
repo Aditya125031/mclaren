@@ -73,7 +73,7 @@ This guide walks you through setting up and launching the **shitty_robo** ROS 2 
 Navigate to the `src/` folder of your ROS 2 workspace and clone the repo:
 
 ```bash
-git clone https://github.com/Aditya125031/mclaren.git
+git clone https://github.com/Aditya125031/mclaren_robo.git
 ```
 
 ## 🔧 2. Build the Workspace
