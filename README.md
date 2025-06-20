@@ -141,4 +141,10 @@ source install/setup.bash
 
 ## Improvements you can make
 
-You can always make the robot less -- Shitty
+You can always make the robot a little less... "shitty." 😄
+
+Jokes aside, one practical improvement would be to make the sensor check a range of rays from -30° to 30°, rather than just a single ray at 0°.
+
+Right now, the node only checks the forward-facing (0°) laser reading to decide whether to stop. Expanding the range will make obstacle detection more robust and reduce the chances of missing objects slightly off-center.
+
+The node still needs some work, but this would be a solid step forward.
