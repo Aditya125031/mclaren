@@ -60,6 +60,15 @@ Welcome to **Mclaren_p1**, a simulated 4-wheeled differential drive robot develo
 ### 🧱 RViz Obstacle Detection
 
 ![RViz Obstacle](Screenshots/rviz_obstacle.png)
+
+Bear with the video quality, my system is not so strong 😅
+
+https://github.com/user-attachments/assets/fbd3b9f3-a487-43e0-b2b4-27b28e971b82
+
+
+
+
+
 ## 🧪 How to Use
 
 # 🚀 How to Run the `mclaren_robo` ROS 2 Package
