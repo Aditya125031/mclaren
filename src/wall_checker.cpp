@@ -17,7 +17,7 @@ public:
     // --- Parameters ---------------------------------------------------------
     last_cmd_ = geometry_msgs::msg::Twist();
 
-    declare_parameter<double>("alert_distance", 1.25);
+    declare_parameter<double>("alert_distance", 0.65);
     get_parameter("alert_distance", alert_distance_);
 
     // --- Publisher ----------------------------------------------------------
