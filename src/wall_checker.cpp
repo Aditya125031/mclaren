@@ -3,6 +3,7 @@
 #include "geometry_msgs/msg/twist.hpp"
 #include <cmath>
 #include <chrono>
+#include <algorithm>
 
 using namespace std::chrono_literals;
 using std::placeholders::_1;
@@ -14,7 +15,9 @@ public:
   : Node("wall_alert_node"), stop_robot_(false)
   {
     // --- Parameters ---------------------------------------------------------
-    declare_parameter<double>("alert_distance", 0.5);
+    last_cmd_ = geometry_msgs::msg::Twist();
+
+    declare_parameter<double>("alert_distance", 1.25);
     get_parameter("alert_distance", alert_distance_);
 
     // --- Publisher ----------------------------------------------------------
@@ -40,24 +43,40 @@ public:
 private:
   void scan_callback(const sensor_msgs::msg::LaserScan::SharedPtr msg)
   {
-    int idx = std::lround((0.0 - msg->angle_min) / msg->angle_increment);
-    idx = std::clamp(idx, 0, static_cast<int>(msg->ranges.size()) - 1);
-
-    double dist = msg->ranges[idx];
-    bool obstacle = (dist >= msg->range_min &&
-                     dist <= msg->range_max &&
-                     std::isfinite(dist) &&
-                     dist < alert_distance_);
-
-    if (obstacle && !stop_robot_) {
-      RCLCPP_WARN(get_logger(),
-        "⚠️  Obstacle at 0° within %.2f m (dist=%.2f). Stopping forward.",
-        alert_distance_, dist);
-    } else if (!obstacle && stop_robot_) {
-      RCLCPP_INFO(get_logger(),
-        "✅  0° clear (dist=%.2f). Resuming teleop.", dist);
+    const double half_fov_rad=M_PI/6.0;
+    int idx_min=std::lround((-half_fov_rad-msg->angle_min)/msg->angle_increment);
+    int idx_max=std::lround((half_fov_rad-msg->angle_min)/msg->angle_increment);
+    
+    idx_min=std::clamp(idx_min, 0, static_cast<int>(msg->ranges.size())-1);
+    idx_max=std::clamp(idx_max, 0, static_cast<int>(msg->ranges.size())-1);
+    if (idx_min > idx_max) std::swap(idx_min, idx_max);
+    
+    double min_dist=msg->range_max;
+      for(int i=idx_min; i<=idx_max; ++i)
+      {
+    	RCLCPP_INFO(get_logger(), "Ray[%d] = %.2f m", i, msg->ranges[i]);
+    	
+        double d=msg->ranges[i];
+        if (std::isfinite(d) && d >= msg->range_min && d <= msg->range_max) 
+        {
+      min_dist = std::min(min_dist, d);
+         }
+      }
+      
+      bool obstacle=(min_dist<alert_distance_);
+      
+    if(obstacle && !stop_robot_)
+    {
+    	RCLCPP_WARN(get_logger(),
+      "⚠️  Obstacle within %.2f m in ±30° cone (closest=%.2f m). Stopping forward.",
+      alert_distance_, min_dist);
     }
-    stop_robot_ = obstacle;
+    else if(!obstacle && stop_robot_)
+    {
+     	RCLCPP_INFO(get_logger(),
+      "✅  ±30° cone clear (closest=%.2f m). Resuming teleop.", min_dist);
+    }
+    stop_robot_=obstacle;
   }
 
   void teleop_callback(const geometry_msgs::msg::Twist::SharedPtr msg)
@@ -97,6 +116,7 @@ int main(int argc, char ** argv)
   rclcpp::shutdown();
   return 0;
 }
+
 
 
 
